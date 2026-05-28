@@ -561,7 +561,25 @@ section{position:relative;z-index:10}
 .ct-term-body .cm{color:var(--sub);opacity:.55}
 .ct-term-cursor{display:inline-block;width:7px;height:1em;background:var(--uv2);margin-left:2px;vertical-align:middle;animation:blink .8s step-end infinite}
 
-/* ── FOOTER ── */
+/* ── MUTE BUTTON ── */
+#mute-btn{
+  position:fixed;bottom:2rem;right:2rem;z-index:500;
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(7,7,12,.85);
+  border:1px solid var(--border);
+  color:var(--uv2);cursor:none;
+  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:border-color .2s,color .2s,transform .2s,box-shadow .2s;
+}
+#mute-btn:hover{
+  border-color:var(--uvb);
+  box-shadow:0 0 18px rgba(107,95,232,.2);
+  transform:scale(1.1);
+}
+#mute-btn.muted{color:var(--sub);border-color:var(--border)}
+#mute-btn .sound-waves{transition:opacity .3s}
+#mute-btn.muted .sound-waves{opacity:0}
 footer{
   padding:1.6rem 3rem;border-top:1px solid var(--border);
   z-index:10;position:relative;background:var(--bg);
@@ -1005,7 +1023,7 @@ footer{
     ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
     requestAnimationFrame(lc);
   })();
-  document.querySelectorAll('a,button,.pj-card,.ab-data-item,.tk-item').forEach(el => {
+  document.querySelectorAll('a,button,.pj-card,.ab-data-item,.tk-item,#mute-btn').forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('ch'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('ch'));
   });
@@ -1533,6 +1551,206 @@ function render(t) {
 
 resize();
 requestAnimationFrame(render);
+
+/* ══════════════════════════════════════
+   PROFESSIONAL AUDIO ENGINE
+   — Cinematic Am chord pad + convolution
+     reverb + sub pulse + shimmer layer
+   — Right-click: 3-layer warm UI tone
+     (Apple/Figma-level SFX feel)
+   — Mute toggle bottom-right
+══════════════════════════════════════ */
+(function audioEngine() {
+  let ctx = null, masterGain = null;
+  let ambientStarted = false, muted = false;
+
+  function getCtx() {
+    if (!ctx) {
+      ctx = new (window.AudioContext || window.webkitAudioContext)();
+      masterGain = ctx.createGain();
+      masterGain.gain.value = 0;
+      masterGain.connect(ctx.destination);
+    }
+    return ctx;
+  }
+
+  /* Synthetic reverb impulse */
+  function makeReverb(ac, dur, decay) {
+    const len = ac.sampleRate * dur;
+    const ir  = ac.createBuffer(2, len, ac.sampleRate);
+    for (let ch = 0; ch < 2; ch++) {
+      const d = ir.getChannelData(ch);
+      for (let i = 0; i < len; i++)
+        d[i] = (Math.random()*2-1) * Math.pow(1 - i/len, decay);
+    }
+    const conv = ac.createConvolver();
+    conv.buffer = ir;
+    return conv;
+  }
+
+  function startAmbient() {
+    if (ambientStarted) return;
+    ambientStarted = true;
+    const ac = getCtx(), now = ac.currentTime;
+
+    /* Reverb send */
+    const rev  = makeReverb(ac, 6, 3);
+    const revG = ac.createGain(); revG.gain.value = 0.5;
+    rev.connect(revG); revG.connect(masterGain);
+
+    /* Dry bus */
+    const dry = ac.createGain(); dry.gain.value = 0.4;
+    dry.connect(masterGain);
+
+    /* Warmth filter */
+    const lpf = ac.createBiquadFilter();
+    lpf.type = 'lowpass'; lpf.frequency.value = 1100; lpf.Q.value = 0.4;
+    lpf.connect(rev); lpf.connect(dry);
+
+    /* Am chord — A2 E3 A3 C4 E4 */
+    [110, 164.81, 220, 261.63, 329.63].forEach((f, i) => {
+      const o = ac.createOscillator(), g = ac.createGain();
+      o.type = i < 2 ? 'sine' : 'triangle';
+      o.frequency.value = f + (Math.random()-.5)*.25;
+      g.gain.setValueAtTime(0, now);
+      g.gain.linearRampToValueAtTime(i < 2 ? 0.20 : 0.09, now + 1.2 + i*.2);
+      o.connect(g); g.connect(lpf); o.start(now);
+      /* Per-voice slow vibrato */
+      const vib = ac.createOscillator(), vibG = ac.createGain();
+      vib.frequency.value = 0.15 + i*.03; vibG.gain.value = 0.4;
+      vib.connect(vibG); vibG.connect(o.frequency); vib.start(now);
+    });
+
+    /* Deep sub — 41 Hz breathing */
+    const sub = ac.createOscillator(), subG = ac.createGain();
+    sub.type = 'sine'; sub.frequency.value = 41;
+    subG.gain.setValueAtTime(0, now);
+    subG.gain.linearRampToValueAtTime(0.16, now + 1.5);
+    sub.connect(subG); subG.connect(masterGain); sub.start(now);
+    const lfo = ac.createOscillator(), lfoG = ac.createGain();
+    lfo.frequency.value = 0.2; lfoG.gain.value = 0.1;
+    lfo.connect(lfoG); lfoG.connect(subG.gain); lfo.start(now);
+
+    /* Air shimmer — bandpass noise */
+    const nBuf = ac.createBuffer(1, ac.sampleRate*4, ac.sampleRate);
+    const nd   = nBuf.getChannelData(0);
+    for (let i=0; i<nd.length; i++) nd[i] = Math.random()*2-1;
+    const nSrc = ac.createBufferSource(); nSrc.buffer = nBuf; nSrc.loop = true;
+    const nBP  = ac.createBiquadFilter(); nBP.type = 'bandpass';
+    nBP.frequency.value = 3800; nBP.Q.value = 5;
+    const nG   = ac.createGain();
+    nG.gain.setValueAtTime(0, now); nG.gain.linearRampToValueAtTime(0.022, now+2);
+    nSrc.connect(nBP); nBP.connect(nG); nG.connect(rev); nSrc.start(now);
+
+    /* Fade master in over 5s */
+    masterGain.gain.linearRampToValueAtTime(0.68, now + 1.5);
+  }
+
+  /* Premium right-click SFX — warm tonal + reverb tail */
+  function playSFX() {
+    const ac = getCtx();
+    if (ac.state === 'suspended') ac.resume();
+    const now = ac.currentTime;
+
+    const rev  = makeReverb(ac, 1.0, 5);
+    const revG = ac.createGain(); revG.gain.value = 0.22;
+    rev.connect(revG); revG.connect(ac.destination);
+
+    const out = ac.createGain();
+    out.gain.setValueAtTime(0.3, now);
+    out.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+    out.connect(ac.destination); out.connect(rev);
+
+    /* Warm sine tone: 880 → 440 */
+    const t1 = ac.createOscillator(), g1 = ac.createGain();
+    t1.type = 'sine';
+    t1.frequency.setValueAtTime(880, now);
+    t1.frequency.exponentialRampToValueAtTime(440, now + 0.14);
+    g1.gain.setValueAtTime(0.55, now);
+    g1.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+    t1.connect(g1); g1.connect(out); t1.start(now); t1.stop(now+0.2);
+
+    /* Harmonic shimmer: 1760 → 880 */
+    const t2 = ac.createOscillator(), g2 = ac.createGain();
+    t2.type = 'sine';
+    t2.frequency.setValueAtTime(1760, now);
+    t2.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+    g2.gain.setValueAtTime(0.16, now);
+    g2.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+    t2.connect(g2); g2.connect(out); t2.start(now); t2.stop(now+0.12);
+
+    /* Sub thud: 120 → 40 */
+    const t3 = ac.createOscillator(), g3 = ac.createGain();
+    t3.type = 'sine';
+    t3.frequency.setValueAtTime(120, now);
+    t3.frequency.exponentialRampToValueAtTime(40, now + 0.07);
+    g3.gain.setValueAtTime(0.32, now);
+    g3.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+    t3.connect(g3); g3.connect(out); t3.start(now); t3.stop(now+0.1);
+  }
+
+  /* Mute button */
+  const btn = document.createElement('button');
+  btn.id = 'mute-btn';
+  btn.innerHTML = `
+    <svg id="ico-on" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+    <svg id="ico-off" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
+    </svg>`;
+  document.body.appendChild(btn);
+
+  btn.addEventListener('click', () => {
+    if (!ambientStarted) { startAmbient(); return; }
+    muted = !muted;
+    const ac2 = getCtx();
+    if (muted) {
+      masterGain.gain.linearRampToValueAtTime(0, ac2.currentTime + 1);
+      btn.classList.add('muted');
+      document.getElementById('ico-on').style.display  = 'none';
+      document.getElementById('ico-off').style.display = 'block';
+    } else {
+      masterGain.gain.linearRampToValueAtTime(0.68, ac2.currentTime + 1.5);
+      btn.classList.remove('muted');
+      document.getElementById('ico-on').style.display  = 'block';
+      document.getElementById('ico-off').style.display = 'none';
+    }
+  });
+
+  /* Auto-start on page load — attempt immediately,
+     fallback to first interaction if browser blocks */
+  function tryAutoplay() {
+    startAmbient();
+    const ac = getCtx();
+    if (ac.state === 'suspended') {
+      ac.resume().catch(() => {});
+    }
+  }
+
+  /* Try immediately */
+  if (document.readyState === 'complete') {
+    tryAutoplay();
+  } else {
+    window.addEventListener('load', tryAutoplay);
+  }
+
+  /* Fallback — first interaction unlocks if browser blocked */
+  const unlock = () => {
+    const ac = getCtx();
+    if (ac.state === 'suspended') ac.resume().then(() => startAmbient());
+    else startAmbient();
+    ['click','keydown','scroll','touchstart','pointerdown'].forEach(ev =>
+      document.removeEventListener(ev, unlock)
+    );
+  };
+  ['click','keydown','scroll','touchstart','pointerdown'].forEach(ev =>
+    document.addEventListener(ev, unlock, { once: true })
+  );
+})();
 </script>
 </body>
 </html>
