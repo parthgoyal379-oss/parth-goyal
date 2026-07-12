@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Parth Goyal — Builder, Saharanpur</title>
-<meta name="description" content="Parth Goyal — 17, Saharanpur. Builds systems that predict outcomes before they happen. ClassPredictor, SYNAPSE.">
+<meta name="description" content="Parth Goyal — 17, Saharanpur. Builds systems that predict outcomes before they happen. ClassPredictor, SYNAPSE, Verdikt.">
 <link rel="canonical" href="https://parth-goyal.vercel.app/">
 <meta name="theme-color" content="#EEEAE0">
 <meta name="author" content="Parth Goyal">
@@ -12,14 +12,14 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="Parth Goyal — Builder, Saharanpur">
-<meta property="og:description" content="17, Saharanpur. Builds systems that predict outcomes before they happen. ClassPredictor, SYNAPSE.">
+<meta property="og:description" content="17, Saharanpur. Builds systems that predict outcomes before they happen. ClassPredictor, SYNAPSE, Verdikt.">
 <meta property="og:url" content="https://parth-goyal.vercel.app/">
 <meta property="og:site_name" content="Parth Goyal">
 <meta property="og:locale" content="en_IN">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Parth Goyal — Builder, Saharanpur">
-<meta name="twitter:description" content="17, Saharanpur. Builds systems that predict outcomes before they happen. ClassPredictor, SYNAPSE.">
+<meta name="twitter:description" content="17, Saharanpur. Builds systems that predict outcomes before they happen. ClassPredictor, SYNAPSE, Verdikt.">
 
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23EEEAE0'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-weight='700' font-size='30' fill='%23A32F1F' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
 
@@ -130,15 +130,15 @@ a{color:inherit}
 /* ============================================================
    REVEAL / MOTION UTILITIES
 ============================================================ */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
 .reveal.in{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.08s}
-.d2{transition-delay:.16s}
-.d3{transition-delay:.24s}
-.d4{transition-delay:.32s}
-.d5{transition-delay:.4s}
+.d1{transition-delay:.12s}
+.d2{transition-delay:.24s}
+.d3{transition-delay:.36s}
+.d4{transition-delay:.48s}
+.d5{transition-delay:.6s}
 @media (prefers-reduced-motion:reduce){
-  .reveal,.reveal.in{opacity:1!important;transform:none!important;transition:none!important}
+  .reveal{transform:none!important;transition:opacity .25s ease!important}
   html{scroll-behavior:auto}
 }
 
@@ -161,6 +161,7 @@ a{color:inherit}
   font-family:var(--hand);font-weight:600;color:var(--red);
   font-size:1.35rem;line-height:1.2;transform:rotate(-3deg);display:inline-block;
 }
+.annot.in{transform:rotate(-3deg)}
 
 /* animated ink underline — draws in on hover, layered under any static rule */
 .u-line{position:relative}
@@ -182,8 +183,8 @@ a{color:inherit}
 .stamp-sig.stamped{transform:rotate(8deg) scale(1)}
 .pj-card:hover .stamp.stamped{transform:rotate(-10.3deg) translateY(-1px)}
 @media (prefers-reduced-motion:reduce){
-  .stamp{transition:none;transform:rotate(-11deg) scale(1);opacity:.92}
-  .stamp-sig{transform:rotate(8deg) scale(1)}
+  .stamp{transition:opacity .25s ease!important;transform:rotate(-11deg) scale(1)!important}
+  .stamp-sig{transform:rotate(8deg) scale(1)!important}
 }
 .stamp::before{
   content:'';position:absolute;inset:9px;border-radius:50%;border:1px solid var(--red);opacity:.55;
@@ -221,12 +222,19 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
   padding:1.4rem var(--pad-x);
   display:flex;align-items:center;justify-content:space-between;
-  transition:padding .3s,background .3s,border-color .3s;
+  transition:padding .3s,background .3s,border-color .3s,transform .35s cubic-bezier(.4,0,.2,1);
   border-bottom:1px solid transparent;
+  animation:navFadeIn .6s cubic-bezier(.4,0,.2,1) both;
 }
 nav.sc{
   background:rgba(238,234,224,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
   border-color:var(--line);padding:1rem var(--pad-x);
+}
+nav.hide{ transform:translateY(-100%); }
+@keyframes navFadeIn{ from{opacity:0;transform:translateY(-10px)} to{opacity:1;transform:translateY(0)} }
+@media (prefers-reduced-motion:reduce){
+  nav{animation:none;opacity:1;transition:padding .3s,background .3s,border-color .3s}
+  nav.hide{transform:none}
 }
 .n-logo{
   font-family:var(--serif);font-weight:700;font-size:1.15rem;letter-spacing:.02em;
@@ -284,7 +292,11 @@ nav.sc{
   font-family:var(--hand);font-weight:600;color:var(--red);
   font-size:1.3rem;transform:rotate(-6deg);white-space:nowrap;
 }
-@media (max-width:640px){ .h-annot{position:static;display:block;margin-top:.6rem;transform:rotate(-2deg)} }
+.h-annot.in{transform:rotate(-6deg)}
+@media (max-width:640px){
+  .h-annot{position:static;display:block;margin-top:.6rem;transform:rotate(-2deg)}
+  .h-annot.in{transform:rotate(-2deg)}
+}
 
 .h-lead{
   font-family:var(--serif);font-style:italic;font-weight:400;
@@ -298,9 +310,10 @@ nav.sc{
 .btn-p{
   font-family:var(--mono);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;
   color:var(--paper-3);background:var(--ink);padding:.85rem 1.7rem;
-  text-decoration:none;display:inline-block;transition:transform .2s,background .2s;
+  text-decoration:none;display:inline-block;box-shadow:0 0 0 rgba(163,47,31,0);
+  transition:transform .3s cubic-bezier(.4,0,.2,1),background .3s,box-shadow .3s cubic-bezier(.4,0,.2,1);
 }
-.btn-p:hover{background:var(--red);transform:translateY(-2px)}
+.btn-p:hover{background:var(--red);transform:translateY(-2px) scale(1.03);box-shadow:0 14px 26px -10px rgba(163,47,31,.55)}
 
 .h-ref{
   position:absolute;top:-2.4rem;right:0;
@@ -403,11 +416,13 @@ nav.sc{
 .pj-left{
   position:relative;background:var(--paper-3);color:var(--ink);padding:2.2rem 2.2rem 2.4rem;
   box-shadow:0 24px 50px -18px rgba(0,0,0,.55);
-  transition:transform .45s cubic-bezier(.4,0,.2,1),box-shadow .45s cubic-bezier(.4,0,.2,1);
+  transition:transform .35s cubic-bezier(.4,0,.2,1),box-shadow .35s cubic-bezier(.4,0,.2,1);
 }
-.pj-card:hover .pj-left{transform:translateY(-6px) rotate(-.5deg);box-shadow:0 34px 64px -18px rgba(0,0,0,.62)}
+.pj-card:hover .pj-left{transform:translateY(-8px) rotate(-.5deg);box-shadow:0 38px 70px -18px rgba(0,0,0,.65)}
 .pj-idx{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;color:var(--red);text-transform:uppercase;margin-bottom:.6rem}
 .pj-name{font-family:var(--serif);font-weight:700;font-size:clamp(1.6rem,2.6vw,2.1rem);margin-bottom:.9rem}
+.pj-name-link{text-decoration:none;color:inherit;transition:color .25s}
+.pj-name-link:hover{color:var(--red)}
 .pj-tagline{font-family:var(--serif);font-style:italic;font-size:1.02rem;line-height:1.5;color:var(--red);margin-bottom:1.2rem}
 .pj-insight{font-size:.94rem;line-height:1.7;color:var(--ink-soft)}
 .pj-insight strong{color:var(--ink);font-weight:500}
@@ -576,7 +591,7 @@ footer{
       Parth<br>
       <span class="last">Goyal
         <svg class="h-underline" viewBox="0 0 300 24" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M4 14 Q 40 4, 75 14 T 150 14 T 225 14 T 296 12" stroke="#A32F1F" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M4 14 Q 40 4, 75 14 T 150 14 T 225 14 T 296 12" stroke="var(--red)" stroke-width="6" fill="none" stroke-linecap="round"/>
         </svg>
       </span>
     </h1>
@@ -591,12 +606,12 @@ footer{
     late nights, exam pressure, and too much curiosity.
   </p>
 
-  <div class="h-actions reveal d2">
+  <div class="h-actions reveal d3">
     <a href="#work" class="btn-p">See the work ↓</a>
     <a href="#about" class="btn-g u-line">Read the statement <span>→</span></a>
   </div>
 
-  <div class="h-stats reveal d3">
+  <div class="h-stats reveal d4">
     <div class="h-stat"><strong>Age 17</strong></div>
     <div class="h-stat"><strong>Saharanpur, India</strong></div>
     <div class="h-stat">Status — <strong>building SYNAPSE</strong></div>
@@ -671,7 +686,7 @@ footer{
     <div class="pj-header">
       <h2 class="pj-title reveal">Selected work</h2>
       <div class="pj-meta reveal d1">
-        <div>Two projects shipped</div>
+        <div>Three projects shipped</div>
         <div>2024 — 2026</div>
       </div>
     </div>
@@ -687,7 +702,7 @@ footer{
             <span class="s-bot">2024</span>
           </div>
           <div class="pj-idx">001 — Featured project</div>
-          <div class="pj-name">ClassPredictor <span class="annot reveal d3" style="font-size:.95rem">(actually worked)</span></div>
+          <div class="pj-name"><a href="https://classpredictor.vercel.app" target="_blank" rel="noopener noreferrer" class="pj-name-link">ClassPredictor</a> <span class="annot reveal d3" style="font-size:.95rem">(actually worked)</span></div>
           <p class="pj-tagline">
             "Students don't fail because Class 11 is hard. They fail because the
             gaps compound silently, long before the report card shows it."
@@ -697,13 +712,14 @@ footer{
             tells you where you're heading</strong> — before it's too late to
             change it.
             <br><br>
-            The insight was simple: <strong>prediction beats motivation</strong>.
-            If a student can see the trajectory of their class division in real
-            time, they stop guessing and start acting.
+            The insight was simple: model subjects as a <strong>dependency
+            graph</strong> instead of isolated marks — prediction beats
+            motivation once a student can see the trajectory of their class
+            division in real time.
             <br><br>
             Built under real exam pressure. Tested by real students. Shipped alone.
           </div>
-          <a href="https://classpredictor.vercel.app" target="_blank" class="pj-url u-line">↗ Visit live project</a>
+          <a href="https://classpredictor.vercel.app" target="_blank" rel="noopener noreferrer" class="pj-url u-line">↗ Visit live project</a>
         </div>
 
         <div class="pj-right">
@@ -714,22 +730,22 @@ footer{
           </div>
           <div>
             <div class="pj-logic-title">Prediction logic</div>
-            <div class="pj-node active reveal d1"><div class="nd"></div>Input — marks per subject</div>
+            <div class="pj-node active reveal d1"><div class="nd"></div>Input — subject-wise marks</div>
             <div class="pj-node-line"></div>
-            <div class="pj-node active reveal d2"><div class="nd"></div>Aggregate — weighted calculation</div>
+            <div class="pj-node active reveal d2"><div class="nd"></div>Map — prerequisite dependency graph</div>
             <div class="pj-node-line"></div>
-            <div class="pj-node active reveal d3"><div class="nd"></div>Pattern — gap analysis</div>
+            <div class="pj-node active reveal d3"><div class="nd"></div>Weight — risk score per node</div>
             <div class="pj-node-line"></div>
-            <div class="pj-node reveal d4"><div class="nd"></div>Output — division + awareness</div>
+            <div class="pj-node reveal d4"><div class="nd"></div>Output — division + early warning</div>
           </div>
           <div>
             <div class="pj-logic-title" style="margin-bottom:.8rem">Built with</div>
             <div class="pj-stack">
-              <span class="pj-tag">Python</span>
-              <span class="pj-tag">ML logic</span>
+              <span class="pj-tag">React</span>
+              <span class="pj-tag">Vite</span>
+              <span class="pj-tag">Firebase Firestore</span>
+              <span class="pj-tag">Dependency graph algo</span>
               <span class="pj-tag">Vercel</span>
-              <span class="pj-tag">Web interface</span>
-              <span class="pj-tag">Student data</span>
             </div>
           </div>
         </div>
@@ -747,7 +763,7 @@ footer{
             <span class="s-bot">SEPT 2026</span>
           </div>
           <div class="pj-idx">002 — In development</div>
-          <div class="pj-name">SYNAPSE <span class="annot reveal d3" style="font-size:.95rem">(the hard one)</span></div>
+          <div class="pj-name"><a href="https://synapserewire.site" target="_blank" rel="noopener noreferrer" class="pj-name-link">SYNAPSE</a> <span class="annot reveal d3" style="font-size:.95rem">(the hard one)</span></div>
           <p class="pj-tagline">
             "You don't lack willpower. You have a hijacked reward system. This
             fixes it."
@@ -765,7 +781,7 @@ footer{
             <br><br>
             The hardest feature to build was the one that had to feel human.
           </div>
-          <a href="https://synapserewire.site" target="_blank" class="pj-url u-line">↗ Preview at synapserewire.site</a>
+          <a href="https://synapserewire.site" target="_blank" rel="noopener noreferrer" class="pj-url u-line">↗ Preview at synapserewire.site</a>
         </div>
 
         <div class="pj-right">
@@ -794,6 +810,72 @@ footer{
               <span class="pj-tag">Groq / LLaMA 3.3 70B</span>
               <span class="pj-tag">Vercel Serverless</span>
               <span class="pj-tag">PWA</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VERDIKT -->
+    <div class="pj-card reveal">
+      <div class="pj-glow"></div>
+      <div class="pj-card-inner">
+        <div class="pj-left fold p3">
+          <div class="stamp" style="top:-18px;right:-14px">
+            <span class="s-top">STATUS</span>
+            <span class="s-main">LIVE</span>
+            <span class="s-bot">2026</span>
+          </div>
+          <div class="pj-idx">003 — Independent build</div>
+          <div class="pj-name"><a href="https://verdikt-parth.vercel.app" target="_blank" rel="noopener noreferrer" class="pj-name-link">Verdikt</a></div>
+          <p class="pj-tagline">
+            "NSE moves in seconds. News takes minutes. Verdikt closes that
+            gap."
+          </p>
+          <div class="pj-insight">
+            An AI-powered market intelligence terminal for Indian markets —
+            <strong>NSE, BSE, MCX, RBI</strong>. It ingests live RSS feeds
+            from Moneycontrol, LiveMint, Economic Times, Hindu BusinessLine,
+            and Zee Business, then runs every article through a
+            <strong>Gemini-powered multi-agent evaluation pipeline</strong>
+            for market-impact scoring and categorization.
+            <br><br>
+            Automatic API key rotation keeps the pipeline running with
+            zero downtime, SHA-256 hashing deduplicates stories across
+            sources in real time, and the terminal reads in English, Hindi,
+            and Hinglish.
+            <br><br>
+            Frontend on Vercel, ingestion backend on Railway — built to
+            process a live feed continuously, not just on request.
+          </div>
+          <a href="https://verdikt-parth.vercel.app" target="_blank" rel="noopener noreferrer" class="pj-url u-line">↗ Visit live project</a>
+        </div>
+
+        <div class="pj-right">
+          <div class="pj-stats">
+            <div class="pj-stat"><span class="pj-stat-n">5</span><span class="pj-stat-l">News sources ingested</span></div>
+            <div class="pj-stat"><span class="pj-stat-n">3</span><span class="pj-stat-l">Languages served</span></div>
+            <div class="pj-stat"><span class="pj-stat-n">0</span><span class="pj-stat-l">Downtime, key rotation</span></div>
+          </div>
+          <div>
+            <div class="pj-logic-title">Evaluation pipeline</div>
+            <div class="pj-node active reveal d1"><div class="nd"></div>Ingest — live RSS from 5 market sources</div>
+            <div class="pj-node-line"></div>
+            <div class="pj-node active reveal d2"><div class="nd"></div>Dedupe — SHA-256 hashing in real time</div>
+            <div class="pj-node-line"></div>
+            <div class="pj-node active reveal d3"><div class="nd"></div>Evaluate — Gemini multi-agent impact scoring</div>
+            <div class="pj-node-line"></div>
+            <div class="pj-node active reveal d4"><div class="nd"></div>Serve — EN / HI / Hinglish terminal</div>
+          </div>
+          <div>
+            <div class="pj-logic-title" style="margin-bottom:.8rem">Built with</div>
+            <div class="pj-stack">
+              <span class="pj-tag">React</span>
+              <span class="pj-tag">Vite</span>
+              <span class="pj-tag">Node.js</span>
+              <span class="pj-tag">Supabase</span>
+              <span class="pj-tag">Gemini API</span>
+              <span class="pj-tag">Tailwind · Framer Motion</span>
             </div>
           </div>
         </div>
@@ -859,7 +941,7 @@ footer{
             <svg class="ct-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
               <path d="M12 2C6.5 2 2 6.5 2 12c0 4.4 2.9 8.1 6.9 9.4.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.1-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.6 2.4 1.1 3 .9.1-.7.4-1.1.6-1.4-2.3-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.5-1.3.1-2.6 0 0 .8-.3 2.7 1a9.3 9.3 0 0 1 4.9 0c1.9-1.3 2.7-1 2.7-1 .6 1.3.2 2.3.1 2.6.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 22 12c0-5.5-4.5-10-10-10Z"/>
             </svg>
-            <a class="u-line" href="https://github.com/parthgoyal379-oss" target="_blank">github.com/parthgoyal379-oss</a>
+            <a class="u-line" href="https://github.com/parthgoyal379-oss" target="_blank" rel="noopener noreferrer">github.com/parthgoyal379-oss</a>
           </div>
         </div>
 
@@ -897,10 +979,18 @@ footer{
 </footer>
 
 <script>
-/* nav scroll state */
+/* nav — fades in on load (CSS), hides on scroll down, reveals on scroll up */
 const nav = document.getElementById('nav');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let lastY = window.scrollY;
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('sc', window.scrollY > 12);
+  const y = window.scrollY;
+  nav.classList.toggle('sc', y > 12);
+  if (!reduced) {
+    if (y > lastY && y > 140) nav.classList.add('hide');
+    else nav.classList.remove('hide');
+  }
+  lastY = y;
 }, { passive:true });
 
 /* margin-rule scroll progress */
@@ -913,39 +1003,65 @@ if (marginFill) {
   }, { passive:true });
 }
 
-/* corner marks — active section label */
+/* scroll-margin for anchor offset */
+document.querySelectorAll('section[id]').forEach(s => s.style.scrollMarginTop = '84px');
+
+/* ---- ONE IntersectionObserver drives every scroll-triggered effect ---- */
 const sectionNames = { hero:'Hero', about:'About', work:'Work', method:'Method', contact:'Contact' };
 const sectionOrder = Object.keys(sectionNames);
 const markSection = document.getElementById('markSection');
 const markPage = document.getElementById('markPage');
-if (markSection && 'IntersectionObserver' in window) {
-  const secIO = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const id = e.target.id;
-        markSection.textContent = sectionNames[id] || id;
-        const idx = sectionOrder.indexOf(id) + 1;
-        markPage.textContent = String(idx).padStart(2,'0') + ' / ' + String(sectionOrder.length).padStart(2,'0');
-      }
-    });
-  }, { threshold: .5 });
-  sectionOrder.forEach(id => { const el = document.getElementById(id); if (el) secIO.observe(el); });
+
+function runCounter(el) {
+  const original = el.textContent.trim();
+  const m = original.match(/^([^\d]*)(\d+)(.*)$/);
+  if (!m) return; // non-numeric values (∞ etc.) stay static
+  const [, prefix, numStr, suffix] = m;
+  const target = parseInt(numStr, 10);
+  const dur = 600, start = performance.now();
+  function tick(now) {
+    const p = Math.min(1, (now - start) / dur);
+    const eased = 1 - Math.pow(1 - p, 3);
+    el.textContent = prefix + Math.round(target * eased) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+    else el.textContent = original;
+  }
+  requestAnimationFrame(tick);
 }
 
-/* scroll-margin for anchor offset */
-document.querySelectorAll('section[id]').forEach(s => s.style.scrollMarginTop = '84px');
-
-/* reveal on scroll */
-const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-if (!reduced && 'IntersectionObserver' in window) {
+if ('IntersectionObserver' in window) {
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      const el = e.target;
+
+      if (el.tagName === 'SECTION' && el.id) {
+        if (e.intersectionRatio >= .5) {
+          markSection.textContent = sectionNames[el.id] || el.id;
+          const idx = sectionOrder.indexOf(el.id) + 1;
+          markPage.textContent = String(idx).padStart(2,'0') + ' / ' + String(sectionOrder.length).padStart(2,'0');
+        }
+        return; // sections stay observed — their mark updates continuously
+      }
+
+      if (!e.isIntersecting) return;
+
+      if (el.classList.contains('reveal')) { el.classList.add('in'); io.unobserve(el); }
+      if (el.classList.contains('stamp'))  { el.classList.add('stamped'); io.unobserve(el); }
+      if (el.classList.contains('pj-stat-n') && !reduced) { runCounter(el); io.unobserve(el); }
+      else if (el.classList.contains('pj-stat-n')) { io.unobserve(el); }
     });
-  }, { threshold: .12, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  }, { threshold: [0, .12, .4, .5, .6], rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal, .stamp, .pj-stat-n').forEach(el => io.observe(el));
+  sectionOrder.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
 } else {
   document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  document.querySelectorAll('.stamp').forEach(el => el.classList.add('stamped'));
+}
+
+if (reduced) {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  document.querySelectorAll('.stamp').forEach(el => el.classList.add('stamped'));
 }
 
 /* subtle card tilt — desktop only, respects reduced motion */
@@ -959,45 +1075,6 @@ if (!reduced && window.matchMedia('(min-width: 900px)').matches) {
     });
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
-}
-
-/* stamps — settle into place like a press, independent of the .reveal system */
-const stamps = document.querySelectorAll('.stamp');
-if (!reduced && 'IntersectionObserver' in window) {
-  const stampIO = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('stamped'); stampIO.unobserve(e.target); }
-    });
-  }, { threshold: .4 });
-  stamps.forEach(el => stampIO.observe(el));
-} else {
-  stamps.forEach(el => el.classList.add('stamped'));
-}
-
-/* stat counters — count up once, only for values with a real number in them */
-if (!reduced && 'IntersectionObserver' in window) {
-  const countIO = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (!e.isIntersecting) return;
-      countIO.unobserve(e.target);
-      const el = e.target;
-      const original = el.textContent.trim();
-      const m = original.match(/^([^\d]*)(\d+)(.*)$/);
-      if (!m) return; // non-numeric values (∞ etc.) stay static
-      const [, prefix, numStr, suffix] = m;
-      const target = parseInt(numStr, 10);
-      const dur = 600, start = performance.now();
-      function tick(now) {
-        const p = Math.min(1, (now - start) / dur);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = prefix + Math.round(target * eased) + suffix;
-        if (p < 1) requestAnimationFrame(tick);
-        else el.textContent = original;
-      }
-      requestAnimationFrame(tick);
-    });
-  }, { threshold: .6 });
-  document.querySelectorAll('.pj-stat-n').forEach(el => countIO.observe(el));
 }
 
 /* decorative parallax — hero registration marks + file ref, capped small */
