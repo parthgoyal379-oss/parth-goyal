@@ -590,6 +590,7 @@ footer{
 .f-r{display:flex;align-items:center;gap:.5rem}
 .f-dot{width:6px;height:6px;border-radius:50%;background:var(--red)}
 </style>
+<link rel="stylesheet" href="/assets/studio.css">
 </head>
 <body>
 
@@ -611,6 +612,7 @@ footer{
     <a class="n-link u-line" href="#work">Work</a>
     <a class="n-link u-line" href="#method">Method</a>
     <a class="n-link u-line" href="#contact">Contact</a>
+    <button class="nav-command" data-open-command hidden aria-label="Open quick navigation">⌘ K</button>
     <div class="n-badge"><span>OPEN</span></div>
   </div>
 </nav>
@@ -631,7 +633,7 @@ footer{
     <path d="M8 0v16M0 8h16" stroke="var(--ink-faint)" stroke-width="1"/>
   </svg>
 
-  <div class="h-eyebrow reveal">Student · Builder · India</div>
+  <div class="h-eyebrow reveal"><span class="status-dot"></span> Independent developer · India <span class="edition">Portfolio / Vol. 01</span></div>
 
   <div class="h-namewrap">
     <h1 class="h-name reveal">
@@ -644,12 +646,11 @@ footer{
     </h1>
   </div>
 
-  <p class="h-lead reveal d1">Systems over symptoms.</p>
+  <p class="h-lead reveal d1">Find the pattern.<br><em>Build the system.</em></p>
 
   <p class="h-tagline reveal d2">
-    I'm Parth Goyal, a student developer in India. I build web apps
-    with React, Firebase, and AI APIs: ClassPredictor for academic prediction,
-    SYNAPSE for habit support, and Verdikt for Indian market news intelligence.
+    I'm Parth, a student developer turning complicated problems into tools
+    people can actually use. From academic foundations to AI and market intelligence.
   </p>
 
   <div class="h-actions reveal d3">
@@ -658,9 +659,9 @@ footer{
   </div>
 
   <div class="h-stats reveal d4">
-    <div class="h-stat"><strong>Age 17</strong></div>
-    <div class="h-stat"><strong>India</strong></div>
-    <div class="h-stat">Status — <strong>SYNAPSE live</strong></div>
+    <div class="h-stat"><strong>03</strong> live products</div>
+    <div class="h-stat"><strong>1000+</strong> ClassPredictor users</div>
+    <div class="h-stat"><strong>Age 17</strong> still curious</div>
   </div>
   <div class="hero-index" aria-label="Project index">
     <p class="hero-index-label">Three live projects / explore the builds</p>
@@ -670,6 +671,31 @@ footer{
       <a class="hero-project" href="/projects/verdikt/"><strong>Verdikt <span class="arrow" aria-hidden="true">↗</span></strong><span>Market news &amp; evaluation pipelines</span></a>
     </div>
   </div>
+  <div class="systems-lab" aria-label="Interactive project explorer">
+    <div class="lab-heading"><span><i class="status-dot"></i> SYSTEMS EXPLORER</span><span>01 — 03</span></div>
+    <div class="lab-tabs" role="group" aria-label="Explore a project">
+      <button type="button" data-system="classpredictor" aria-pressed="true" disabled>01 / Academics</button>
+      <button type="button" data-system="synapse" aria-pressed="false" disabled>02 / Habits</button>
+      <button type="button" data-system="verdikt" aria-pressed="false" disabled>03 / Markets</button>
+    </div>
+    <div class="lab-visual">
+      <span class="diagram-caption">INPUT → CONNECTIONS → CLARITY</span>
+      <svg viewBox="0 0 480 270" role="img" aria-label="Inputs converge through a connected system into an actionable output">
+        <defs><pattern id="lab-grid" width="22" height="22" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".8" fill="currentColor" opacity=".2"/></pattern></defs>
+        <rect width="480" height="270" fill="url(#lab-grid)"/>
+        <g class="diagram-paths" fill="none" stroke="currentColor"><path d="M80 65C170 65 150 135 240 135"/><path d="M80 135H240"/><path d="M80 205C170 205 150 135 240 135"/><path d="M240 135C325 135 310 80 400 80"/><path d="M240 135C325 135 310 190 400 190"/></g>
+        <g class="diagram-nodes"><circle cx="80" cy="65" r="9"/><circle cx="80" cy="135" r="9"/><circle cx="80" cy="205" r="9"/><circle cx="400" cy="80" r="9"/><circle cx="400" cy="190" r="9"/></g>
+        <circle class="diagram-orbit" cx="240" cy="135" r="44" fill="none" stroke="currentColor" stroke-dasharray="2 8"/>
+        <circle cx="240" cy="135" r="29" fill="currentColor" class="diagram-core"/>
+        <path d="M228 135h24m-12-12v24" stroke="#f5f1e8" stroke-width="1.5"/>
+        <g class="diagram-labels" fill="currentColor"><text x="80" y="43" text-anchor="middle" data-node="0">Foundations</text><text x="80" y="171" text-anchor="middle" data-node="1">Target exam</text><text x="80" y="240" text-anchor="middle" data-node="2">Dependencies</text><text x="400" y="58" text-anchor="middle" data-node="3">Risk map</text><text x="400" y="226" text-anchor="middle" data-node="4">Study roadmap</text></g>
+      </svg>
+      <span class="diagram-foot">CONNECTED THINKING / APPLIED IN CODE</span>
+    </div>
+    <div class="lab-description" aria-live="polite"><span class="lab-category" id="lab-category">EDUCATION / PREREQUISITE GRAPHS</span><h2 id="lab-title">Make the invisible visible.</h2><p id="lab-copy">A weak foundation echoes through every topic built on it. ClassPredictor maps those connections into a preparation plan.</p><a id="lab-link" href="/projects/classpredictor/">Explore ClassPredictor <span aria-hidden="true">↗</span></a></div>
+    <div class="lab-footer"><span>Built by Parth. Used in the real world.</span><span aria-hidden="true">↗</span></div>
+  </div>
+  <div class="hero-bottom"><span>IDEAS → INTERFACES → WORKING SYSTEMS</span><a href="#work">Scroll to investigate <span aria-hidden="true">↓</span></a></div>
 </section>
 
 <!-- ABOUT -->
@@ -694,7 +720,7 @@ footer{
 
       <div>
         <p class="ab-quote reveal d1">
-          "Two years of building. Three products live. First 100 users, zero rupees spent finding them."
+          "Three products live. 1000+ ClassPredictor users. A growing collection of problems worth solving."
         </p>
 
         <div class="ab-bio reveal d1">
@@ -733,7 +759,7 @@ footer{
       <h2 class="pj-title reveal">Selected work</h2>
       <div class="pj-meta reveal d1">
         <div>Three projects shipped</div>
-        <div>2024 — 2026</div>
+        <div>Selected builds / 2026</div>
       </div>
     </div>
 
@@ -745,7 +771,7 @@ footer{
           <div class="stamp" style="top:-18px;right:-14px">
             <span class="s-top">STATUS</span>
             <span class="s-main">LIVE</span>
-            <span class="s-bot">2024</span>
+            <span class="s-bot">2026</span>
           </div>
           <div class="pj-idx">001 — Featured project</div>
           <h3 class="pj-name"><a href="/projects/classpredictor/" class="pj-name-link">ClassPredictor</a></h3>
@@ -994,5 +1020,12 @@ footer{
 </footer>
 
 <script src="/assets/site.js" defer></script>
+<script src="/assets/studio.js" defer></script>
+<dialog class="command-dialog" aria-labelledby="command-title">
+  <div class="command-top"><h2 id="command-title">Where to?</h2><button type="button" data-close-command aria-label="Close navigation">Esc ×</button></div>
+  <p>Jump into the work.</p>
+  <div class="command-links"><a href="#hero">Overview <span>01</span></a><a href="#work">Selected work <span>02</span></a><a href="/projects/classpredictor/">ClassPredictor <span>↗</span></a><a href="/projects/synapse/">SYNAPSE <span>↗</span></a><a href="/projects/verdikt/">Verdikt <span>↗</span></a><a href="#contact">Start a conversation <span>↵</span></a></div>
+  <div class="command-hint">Tab to move · Enter to open · Esc to close</div>
+</dialog>
 </body>
 </html>

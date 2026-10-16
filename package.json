@@ -1,0 +1,13 @@
+{
+  "name": "parth-goyal-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Parth Goyal's portfolio",
+  "scripts": {
+    "dev": "python scripts/build.py && python -m http.server 8765 --directory dist",
+    "build": "python scripts/build.py",
+    "validate": "python scripts/validate.py",
+    "start": "python -m http.server 8765 --directory dist",
+    "test": "node scripts/check.mjs"
+  }
+}

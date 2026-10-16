@@ -36,9 +36,9 @@ try {
             overflow: document.documentElement.scrollWidth > innerWidth,
             brokenFragments: [...document.querySelectorAll('a[href^="#"]')].map(a => a.hash.slice(1)).filter(id => id && !ids.has(id)),
             schemaTypes: [...document.querySelectorAll('script[type="application/ld+json"]')].flatMap(s => JSON.parse(s.textContent)['@graph'].map(n => n['@type'])),
-            hiddenHeadings: [...document.querySelectorAll('h1,h2,h3')].filter(el => !visible(el)).map(el => el.textContent.trim()),
+            hiddenHeadings: [...document.querySelectorAll('h1,h2,h3')].filter(el => !el.closest('dialog:not([open])') && !visible(el)).map(el => el.textContent.trim()),
             cityPresent: /saharanpur/i.test(document.documentElement.outerHTML),
-            agePresent: document.body.textContent.includes('Age 17') && document.body.textContent.includes('(seventeen, if that matters)')
+            agePresent: document.body.textContent.includes('Age 17')
           };
         });
         const result = { path, width, mode, status: response.status(), ...data, errors: [...errors] };

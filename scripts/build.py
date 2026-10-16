@@ -26,7 +26,10 @@ def build():
     source = source.replace('<link rel="stylesheet" href="/assets/fonts.css">',
                             '<style>' + (ROOT / 'assets/fonts.css').read_text(encoding='utf-8') + '</style>')
     source = source.replace('<link rel="stylesheet" href="/assets/refinements.css">', '')
-    source = source.replace('</head>', '<style>' + (ROOT / 'assets/refinements.css').read_text(encoding='utf-8') + '</style>\n</head>')
+    # Shared layout precedes the final studio layer, including on case studies.
+    studio_link = '<link rel="stylesheet" href="/assets/studio.css">'
+    refinement_style = '<style>' + (ROOT / 'assets/refinements.css').read_text(encoding='utf-8') + '</style>\n'
+    source = source.replace(studio_link, refinement_style + studio_link)
 
     # Hashed URLs allow long cache lifetimes without serving stale edits.
     for asset in (ROOT / 'assets').rglob('*'):
