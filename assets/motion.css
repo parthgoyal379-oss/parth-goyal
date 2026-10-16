@@ -1,0 +1,29 @@
+/* Quiet typography, precise mechanics, a living signal diagram. */
+.lab-visual{transition:background-color .65s ease,color .65s ease}
+.diagram-core{transition:color .65s ease}
+.signal-packets{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;pointer-events:none}
+.signal-packets path{stroke-dasharray:3 97;animation:packet-flight 3.6s linear infinite;animation-delay:var(--packet-delay)}
+@keyframes packet-flight{0%{stroke-dashoffset:100;opacity:0}12%,82%{opacity:.9}100%{stroke-dashoffset:0;opacity:0}}
+.diagram-core{transform-box:fill-box;transform-origin:center;animation:core-breathe 3.6s ease-in-out infinite}
+@keyframes core-breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+.systems-lab:not(.motion-visible) .signal-packets path,.systems-lab:not(.motion-visible) .diagram-core,.systems-lab:not(.motion-visible) .diagram-orbit,.systems-lab:not(.motion-visible) .diagram-paths,
+.systems-lab.motion-paused .signal-packets path,.systems-lab.motion-paused .diagram-core,.systems-lab.motion-paused .diagram-orbit,.systems-lab.motion-paused .diagram-paths{animation-play-state:paused}
+.hero-project{position:relative;transition:padding .4s cubic-bezier(.16,1,.3,1),color .3s}
+.hero-project::after{content:'';position:absolute;top:-1px;left:0;right:0;height:1px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.hero-project:hover::after,.hero-project:focus-visible::after{transform:scaleX(1)}
+.hero-project .arrow,.lab-description a span,.hero-bottom a span{display:inline-block;transition:transform .4s cubic-bezier(.16,1,.3,1)}
+.hero-project:hover .arrow,.lab-description a:hover span{transform:translate(3px,-3px)}
+.hero-bottom a:hover span{transform:translateY(4px)}
+.btn-p,.nav-command{transition:translate .3s cubic-bezier(.16,1,.3,1),background .3s,color .3s,box-shadow .3s}
+.command-dialog[open]{animation:dialog-arrive .35s cubic-bezier(.16,1,.3,1)}
+.command-dialog[open]::backdrop{animation:backdrop-arrive .3s ease}
+@keyframes dialog-arrive{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes backdrop-arrive{from{opacity:0}to{opacity:1}}
+@media(hover:hover) and (pointer:fine){.hero-project:hover{padding-left:.65rem}.systems-lab{transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s}.systems-lab:hover{box-shadow:0 35px 70px -35px #262a2440}}
+@media(hover:none) and (pointer:coarse){.signal-packets path,.diagram-core{animation:none}.signal-packets{display:none}}
+@media(prefers-reduced-motion:reduce){
+  .signal-packets{display:none}
+  .diagram-core,.command-dialog[open],.command-dialog[open]::backdrop{animation:none}
+  .lab-visual,.diagram-core,.hero-project,.hero-project::after,.hero-project .arrow,.lab-description a span,.hero-bottom a span,.btn-p,.nav-command,.systems-lab{transition:none}
+  .hero-project:hover .arrow,.lab-description a:hover span,.hero-bottom a:hover span{transform:none}
+}

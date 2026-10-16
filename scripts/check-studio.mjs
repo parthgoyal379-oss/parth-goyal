@@ -32,7 +32,13 @@ try {
   assert.equal(await page.locator('.command-dialog').evaluate(el => el.open), false);
   assert.equal(new URL(page.url()).hash, '#work');
   await page.goto(process.env.BASE_URL || 'http://127.0.0.1:8765');
+  await page.locator('.systems-lab.motion-visible').waitFor();
+  assert.equal(await page.locator('.signal-packets path').count(), 5);
+  assert.equal(await page.locator('.signal-packets path').first().evaluate(el => getComputedStyle(el).animationName), 'packet-flight');
   await page.emulateMedia({ reducedMotion: 'reduce' });
+  assert.equal(await page.locator('.signal-packets').evaluate(el => getComputedStyle(el).display), 'none');
+  assert.equal(await page.locator('.diagram-core').evaluate(el => getComputedStyle(el).animationName), 'none');
+  assert.equal(await page.evaluate(() => document.getAnimations().filter(a => a.playState === 'running' && a.effect?.target?.closest('.systems-lab')).length), 0);
   assert.equal(await page.locator('.diagram-paths').evaluate(el => getComputedStyle(el).animationName), 'none');
   await page.screenshot({ path: 'audit/studio-desktop.png', fullPage: false });
   for (const width of [320, 390, 768, 1024, 1440, 1920]) {
