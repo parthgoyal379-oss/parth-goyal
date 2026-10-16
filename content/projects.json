@@ -18,7 +18,7 @@
     ],
     "flow": ["Rate foundations", "Map prerequisites", "Identify bottlenecks", "Prioritize study"],
     "contribution": "I built and shipped ClassPredictor independently, including the interface, dependency-based prediction logic, and Firebase integration.",
-    "outcome": "The portfolio’s original launch figures are 100+ organic users, with the first 100 reached in two days and ₹0 spent on marketing. These are my reported launch figures; the public repository documents the implementation.",
+    "outcome": "ClassPredictor has reached 1000+ users, with the first 100 reached in two days. I built and shipped it independently, and the source is open on GitHub.",
     "note": "The output is a planning aid based on the supplied inputs and prerequisite model. It is not a guarantee of an exam result."
   },
   {
