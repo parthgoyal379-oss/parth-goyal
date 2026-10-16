@@ -1,0 +1,14 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "python scripts/build.py",
+  "outputDirectory": "dist",
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/:path*", "has": [{ "type": "host", "value": "parth-goyal.vercel.app" }], "destination": "https://www.parthgoyal.me/:path*", "permanent": true },
+    { "source": "/index.html", "destination": "/", "permanent": true },
+    { "source": "/projects/:slug/index.html", "destination": "/projects/:slug/", "permanent": true }
+  ],
+  "headers": [
+    { "source": "/assets/:path*", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] }
+  ]
+}
