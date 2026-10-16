@@ -9,6 +9,7 @@
     { "source": "/projects/:slug/index.html", "destination": "/projects/:slug/", "permanent": true }
   ],
   "headers": [
-    { "source": "/assets/:path*", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] }
+    { "source": "/assets/:path*", "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400" }] },
+    { "source": "/assets/:path*.:hash([a-f0-9]{12}).:ext(woff2|js)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }] }
   ]
 }

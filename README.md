@@ -10,8 +10,8 @@ python scripts/validate.py
 python -m http.server 8765 --directory dist
 ```
 
-Deploy **dist**, never the repository root. `vercel.json` sets the build command and output directory. The build generates three project pages from the authored homepage cards and regenerates sitemap.xml and robots.txt. Edit project detail introductions in `scripts/build.py`; edit project descriptions, technologies and demo links in `index.html`. Add new projects to the build inventory and keep its card extraction assertion in sync. Do not hand-edit dist.
+Deploy **dist**, never the repository root. `vercel.json` sets the build command and output directory. The build generates project case studies from `content/projects.json` and `templates/project.html`, along with sitemap.xml and robots.txt. Edit homepage summaries in `index.html`, shared refinements in `assets/refinements.css`, and interactions in `assets/site.js`. Keep homepage summaries consistent with the project data. Do not hand-edit dist.
 
-`node scripts/check.mjs` checks the running local server with Chrome and the installed Windows Playwright CLI. If Playwright is installed elsewhere, adjust its import path. Screenshots and JSON evidence go into audit/. Fonts are self-hosted with their OFL licenses.
+`node scripts/check.mjs` checks all four pages at 320, 390, 768 and 1440px with JavaScript enabled, disabled and reduced motion. It also checks copying email, active navigation and live motion changes. Use a local Playwright installation, the installed Windows Playwright CLI, or set `PLAYWRIGHT_MODULE` to its location. Set `BASE_URL` to test a preview deployment. Screenshots and JSON evidence go into audit/. Fonts are self-hosted with their OFL licenses. The build inlines font definitions and gives fonts/scripts content-hashed URLs for safe caching.
 
-Read [the SEO audit and deployment checklist](SEO-REPORT.md). Changes are local; deploying and account verification are separate steps. This folder was supplied without a Git repository or Vercel project link.
+Read [the original SEO audit](SEO-REPORT.md) and [the improvement report](IMPROVEMENTS.md). This repository is connected to `parthgoyal379-oss/parth-goyal`; pushes to main trigger the Vercel production deployment. Search Console, Bing and analytics ownership tasks still require account setup.

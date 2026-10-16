@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>${head}</head>
+<body class="project-page">
+<a href="#main" class="skip-link">Skip to content</a>
+<nav aria-label="Primary">
+  <a class="n-logo" href="/" aria-label="P·G — Parth Goyal home">P<span>·</span>G</a>
+  <div class="n-right"><a class="n-link" href="/#work">All projects</a><a class="n-link" href="/#contact">Contact</a></div>
+</nav>
+<main id="main" tabindex="-1" class="case-main s-pad"><div class="case-shell">
+  <div class="case-breadcrumb"><a href="/">Parth Goyal</a><span aria-hidden="true">/</span><span>${name}</span></div>
+  <header>
+    <p class="case-kicker">${category} / Live</p>
+    <h1 class="case-title">${name}</h1>
+    <p class="case-summary">${summary}</p>
+    <div class="case-actions"><a class="btn-p" href="${demo}" target="_blank" rel="noopener noreferrer">Open ${name} ↗</a>${source_link}</div>
+    <p class="case-byline">Built by <a href="/#about">Parth Goyal</a> · Project notes</p>
+  </header>
+  <nav class="case-nav" aria-label="On this page">
+    <a href="#problem">Problem</a><a href="#approach">Approach</a><a href="#implementation">Implementation</a><a href="#contribution">My contribution</a><a href="#outcome">Outcome</a>
+  </nav>
+  <div class="case-content">
+    <div class="case-prose">
+      <section id="problem"><h2>The problem</h2><p>${problem}</p></section>
+      <section id="approach"><h2>My approach</h2><p>${approach}</p><ol class="case-flow">${flow}</ol></section>
+      <section id="implementation"><h2>How it works</h2>${implementation}</section>
+      <section id="contribution"><h2>What I built</h2><p>${contribution}</p></section>
+      <section id="outcome"><h2>Where it stands</h2><p>${outcome}</p><p>${note}</p></section>
+    </div>
+    <aside class="case-aside" aria-label="Project details">
+      <h2>Built with</h2><ul class="case-stack">${stack}</ul>
+      <h2>Explore the project</h2><p><a href="${demo}" target="_blank" rel="noopener noreferrer">Visit the live app ↗</a></p>
+    </aside>
+  </div>
+  <section class="case-next" aria-labelledby="more-projects"><h2 id="more-projects">More from the workbench</h2><div class="case-next-grid">${related}</div></section>
+  <section class="case-contact"><h2>Working on a similar problem?</h2><a href="mailto:Parthgoyal379@gmail.com?subject=${name}%20collaboration">Let’s talk about it →</a></section>
+</div></main>
+<footer><span>© 2026 Parth Goyal</span><a href="/">Back to the portfolio ↑</a></footer>
+</body></html>

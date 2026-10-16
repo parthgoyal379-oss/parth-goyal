@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "classpredictor",
+    "name": "ClassPredictor",
+    "category": "Education · Prerequisite analysis",
+    "title": "ClassPredictor: Academic Risk & Prerequisite Graphs | Parth Goyal",
+    "summary": "I built ClassPredictor to map gaps in school foundations to the topics that depend on them, giving students a clearer starting point for preparation.",
+    "description": "Explore Parth Goyal’s ClassPredictor: a React app that maps prerequisite dependencies, identifies academic bottlenecks, and prioritizes preparation.",
+    "demo": "https://classpredictor.vercel.app/",
+    "source": "https://github.com/parthgoyal379-oss/classpredictor",
+    "stack": ["React", "Vite", "D3.js", "Firebase Firestore"],
+    "problem": "A weak foundation can make a later topic difficult even when a student is putting in time. A single score does not explain which prerequisite to revisit or where to begin.",
+    "approach": "I modelled the relationship between foundational topics and the topics that depend on them. ClassPredictor uses those relationships to identify bottlenecks and turn a broad preparation problem into a set of priorities.",
+    "implementation": [
+      {"title": "Map the dependencies", "text": "A directed prerequisite graph connects school foundations to later topics. The public project documentation describes a D3.js visualization that makes those connections visible."},
+      {"title": "Prioritize preparation", "text": "The risk engine considers prerequisite strength and the target exam. A prioritization matrix and phased roadmap help students decide what to work on first."},
+      {"title": "Ship a usable web app", "text": "I built the interface with React and Vite, with Firebase Firestore for telemetry and feedback. The source is public, so the implementation can be inspected alongside the demo."}
+    ],
+    "flow": ["Rate foundations", "Map prerequisites", "Identify bottlenecks", "Prioritize study"],
+    "contribution": "I built and shipped ClassPredictor independently, including the interface, dependency-based prediction logic, and Firebase integration.",
+    "outcome": "The portfolio’s original launch figures are 100+ organic users, with the first 100 reached in two days and ₹0 spent on marketing. These are my reported launch figures; the public repository documents the implementation.",
+    "note": "The output is a planning aid based on the supplied inputs and prerequisite model. It is not a guarantee of an exam result."
+  },
+  {
+    "slug": "synapse",
+    "name": "SYNAPSE",
+    "category": "AI applications · Habit support",
+    "title": "SYNAPSE: AI Habit Support App | Parth Goyal",
+    "summary": "I built SYNAPSE around a five-step reflection flow, personalized AI plans, daily check-ins, and support for getting back on track after a setback.",
+    "description": "See how Parth Goyal built SYNAPSE with React, Firebase, Groq, and LLaMA: reflection flows, AI plans, daily check-ins, and streak tracking.",
+    "demo": "https://synapserewire.site/",
+    "source": null,
+    "stack": ["React", "Firebase Auth", "Firestore", "Firebase Cloud Messaging", "Groq", "LLaMA 3.3 70B", "Vercel Serverless", "PWA"],
+    "problem": "A habit tracker can count days without helping someone understand the pattern behind a repeated behavior. I wanted to connect reflection, a concrete plan, and the next daily action.",
+    "approach": "I built a five-step flow to collect the user’s pattern, then use an AI response to turn it into a personalized plan. Daily check-ins, streak logic, milestone drops, and setback responses keep that plan connected to ongoing use.",
+    "implementation": [
+      {"title": "Turn reflection into context", "text": "The onboarding flow collects the pattern in five steps before requesting a plan. This gives the AI response context from the user’s own answers."},
+      {"title": "Verify requests on the server", "text": "Firebase Auth identifies the user. Server-side verification sits between the client and the AI request, rather than relying on a claim sent by the browser."},
+      {"title": "Support returning users", "text": "Firestore, check-ins, streak resets, notifications, and milestone logic support the ongoing experience. The app uses Groq with LLaMA 3.3 70B and is deployed with Vercel serverless functions."}
+    ],
+    "flow": ["Reflect", "Identify patterns", "Create a plan", "Check in and adjust"],
+    "contribution": "I built the reflection flow, AI integration, authenticated request path, and the check-in and streak experience.",
+    "outcome": "SYNAPSE is live. The public app demonstrates the experience; this portfolio does not report measured health outcomes or clinical validation.",
+    "note": "SYNAPSE is a habit-support project. AI-generated plans are not medical advice or a substitute for professional care."
+  },
+  {
+    "slug": "verdikt",
+    "name": "Verdikt",
+    "category": "Market intelligence · Data pipelines",
+    "title": "Verdikt: AI Market News Pipeline | Parth Goyal",
+    "summary": "I built Verdikt to collect Indian market news, remove repeated stories, and organize Gemini-generated impact assessments in a multilingual terminal.",
+    "description": "Explore Parth Goyal’s Verdikt: RSS ingestion, SHA-256 deduplication, Gemini impact scoring, and an English, Hindi, and Hinglish market news terminal.",
+    "demo": "https://verdikt-parth.vercel.app/",
+    "source": null,
+    "stack": ["React", "Vite", "Node.js", "Supabase", "Gemini API", "Tailwind CSS", "Framer Motion", "Railway", "Vercel"],
+    "problem": "Market stories arrive across multiple publishers, often repeating the same development. Reading every feed separately makes it harder to identify what changed and which stories deserve attention.",
+    "approach": "I separated continuous ingestion from the reading interface. The backend collects RSS items, deduplicates stories, and sends them through a Gemini-powered evaluation pipeline before the terminal presents the results.",
+    "implementation": [
+      {"title": "Ingest across publishers", "text": "The pipeline collects RSS feeds from Moneycontrol, LiveMint, Economic Times, Hindu BusinessLine, and Zee Business, covering Indian market and policy developments."},
+      {"title": "Deduplicate and evaluate", "text": "SHA-256 hashing identifies repeated stories. A Gemini multi-agent evaluation pipeline assigns market-impact scores and categories; API key rotation supports continued processing."},
+      {"title": "Separate processing from delivery", "text": "The ingestion backend runs on Railway and the frontend on Vercel. React and Node.js are paired with Supabase, while the terminal supports English, Hindi, and Hinglish."}
+    ],
+    "flow": ["Collect RSS", "Deduplicate", "Evaluate impact", "Present the feed"],
+    "contribution": "I built the news ingestion and evaluation pipeline and the multilingual terminal, connecting the continuously running backend to the frontend.",
+    "outcome": "Verdikt is live with five news sources and three reading languages described in the project. No independently measured accuracy or uptime figure is claimed here.",
+    "note": "Impact scores are AI-generated interpretations of news. They are not verified predictions or investment recommendations."
+  }
+]
