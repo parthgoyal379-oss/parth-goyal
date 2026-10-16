@@ -60,6 +60,9 @@ for file in sorted(OUT.rglob('index.html')):
         for attr in ('href', 'src'):
             value = attrs.get(attr, '')
             if value.startswith('/') and not value.startswith('//'):
+                # Skip Vercel-provided routes (analytics, speed insights, etc.)
+                if value.startswith('/_vercel/'):
+                    continue
                 target = OUT / unquote(urlsplit(value).path.lstrip('/'))
                 assert target.exists(), (file, value)
     schemas = [node for block in p.json for node in block['@graph']]
