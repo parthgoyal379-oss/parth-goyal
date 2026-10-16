@@ -46,7 +46,7 @@ The full per-page title, description, canonical, index directive and schema inve
 
 ## 3. AEO and GEO changes
 
-The initial HTML now directly identifies Parth Goyal as a student developer in Saharanpur, India and names what each project does. Existing stack tables and project pipelines provide factual technical context. Owned project pages connect those explanations to the original demos, authorship, contact information and homepage. No artificial FAQ or generic article was created.
+The initial HTML now directly identifies Parth Goyal as a student developer in India and names what each project does. Existing stack tables and project pipelines provide factual technical context. Owned project pages connect those explanations to the original demos, authorship, contact information and homepage. No artificial FAQ or generic article was created.
 
 Homepage schema uses a stable Person identity linked to a WebSite and ProfilePage. Only the existing public GitHub account appears in sameAs. Project pages use WebPage and BreadcrumbList; they are not presented as articles, reviews, medical products, rated software or verified achievements. Unnecessary exact birth date and unsupported generic machine-learning expertise were omitted from the new identity graph. Google-specific eligibility has not been established merely by producing parsable JSON-LD.
 
@@ -129,7 +129,7 @@ See the following generated table. All pages use index, follow.
 
 | Page / canonical | Title | Description | Schema |
 | --- | --- | --- | --- |
-| https://www.parthgoyal.me/ | Parth Goyal — Student Developer & Builder in Saharanpur | I’m Parth Goyal, a student developer in Saharanpur, India. Explore ClassPredictor, SYNAPSE, and Verdikt, built with React, Firebase, and AI APIs. | Person, WebSite, ProfilePage |
+| https://www.parthgoyal.me/ | Parth Goyal — Student Developer & Builder | I’m Parth Goyal, a student developer in India. Explore ClassPredictor, SYNAPSE, and Verdikt, built with React, Firebase, and AI APIs. | Person, WebSite, ProfilePage |
 | https://www.parthgoyal.me/projects/classpredictor/ | ClassPredictor — Academic prediction with React and Firebase &#124; Parth Goyal | I built ClassPredictor to help students see their class division trajectory from subject-wise marks, prerequisite dependencies, and risk scores. | WebPage, BreadcrumbList |
 | https://www.parthgoyal.me/projects/synapse/ | SYNAPSE — An AI habit support web app &#124; Parth Goyal | I built SYNAPSE with a five-step pattern mapping flow, AI-generated plans, daily check-ins, streaks, and relapse responses. SYNAPSE is live. | WebPage, BreadcrumbList |
 | https://www.parthgoyal.me/projects/verdikt/ | Verdikt — AI market news intelligence for India &#124; Parth Goyal | I built Verdikt to ingest Indian market news, deduplicate stories with SHA-256, and evaluate market impact with a Gemini multi-agent pipeline. | WebPage, BreadcrumbList |
