@@ -30,6 +30,7 @@
   const opener = document.querySelector('[data-open-command]');
   if (!dialog || !opener || typeof dialog.showModal !== 'function') return;
   opener.hidden = false;
+  document.documentElement.classList.add('command-ready');
   opener.addEventListener('click', () => dialog.showModal());
   document.querySelector('[data-close-command]').addEventListener('click', () => dialog.close());
   dialog.querySelectorAll('a').forEach(link => link.addEventListener('click', () => dialog.close()));

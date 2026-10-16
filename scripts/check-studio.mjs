@@ -40,5 +40,28 @@ try {
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth), false, `Overflow at ${width}`);
     if (width === 390) await page.screenshot({ path: 'audit/studio-mobile.png', fullPage: true });
   }
-  console.log('PASS: all explorer states, case-study links, command shortcut/focus/Escape/navigation, reduced motion, and six viewport widths.');
+  const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 });
+  await mobile.goto(process.env.BASE_URL || 'http://127.0.0.1:8765');
+  await mobile.locator('[data-open-command]').tap();
+  assert.equal(await mobile.locator('.command-dialog').evaluate(el => el.open), true);
+  await mobile.locator('.command-links a[href="#method"]').tap();
+  assert.equal(new URL(mobile.url()).hash, '#method');
+  assert.equal(await mobile.locator('.command-dialog').evaluate(el => el.open), false);
+  await mobile.locator('[data-system="verdikt"]').tap();
+  assert.equal(await mobile.locator('#lab-title').textContent(), 'Less noise. More signal.');
+  const smallTargets = await mobile.locator('.nav-command, #nav .n-link, .lab-tabs button, .h-actions a, .pj-actions a').evaluateAll(elements => elements.filter(el => el.getClientRects().length && el.getBoundingClientRect().height < 44).map(el => el.textContent));
+  assert.deepEqual(smallTargets, [], 'Mobile primary controls need 44px touch targets');
+  assert.equal(await mobile.locator('.diagram-paths').evaluate(el => getComputedStyle(el).animationName), 'none');
+  await mobile.locator('[data-system="classpredictor"]').tap();
+  await mobile.emulateMedia({ reducedMotion: 'reduce' });
+  await mobile.evaluate(() => scrollTo({ top: 0, behavior: 'instant' }));
+  await mobile.screenshot({ path: 'audit/mobile-touch-390.png' });
+  await mobile.setViewportSize({ width: 320, height: 568 });
+  await mobile.locator('[data-open-command]').tap();
+  assert.equal(await mobile.locator('.command-dialog').evaluate(el => el.getBoundingClientRect().bottom <= innerHeight), true);
+  await mobile.locator('.command-links a[href="#contact"]').tap();
+  assert.equal(new URL(mobile.url()).hash, '#contact');
+  assert.equal(await mobile.evaluate(() => document.documentElement.scrollWidth > innerWidth), false);
+  await mobile.close();
+  console.log('PASS: explorer states, keyboard and mobile touch navigation, 44px controls, small-screen dialog, reduced motion, and six viewport widths.');
 } finally { await browser.close(); }
